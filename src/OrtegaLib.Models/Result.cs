@@ -1,6 +1,8 @@
 ﻿namespace OrtegaLib.Models;
 
 public sealed class Result<T, E>
+    where T : notnull
+    where E : notnull
 {
     private readonly T? _value;
     private readonly E? _error;
@@ -49,6 +51,8 @@ public sealed class Result<T, E>
 
     public static Result<T, E> Success(T value)
     {
+        ArgumentNullException.ThrowIfNull(value);
+
         return new Result<T, E>(
             isSuccess: true,
             value: value,
@@ -57,6 +61,8 @@ public sealed class Result<T, E>
 
     public static Result<T, E> Failure(E error)
     {
+        ArgumentNullException.ThrowIfNull(error);
+
         return new Result<T, E>(
             isSuccess: false,
             value: default,
