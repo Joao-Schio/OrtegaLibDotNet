@@ -43,4 +43,18 @@ public class ResultTests
         Assert.Throws<InvalidOperationException>(
             () => result.Value);
     }
+
+    [Fact]
+    public void Success_NullValue_ShouldThrow()
+    {
+        Assert.Throws<ArgumentNullException>(
+            () => Result<string, string>.Success(null!));
+    }
+
+    [Fact]
+    public void Failure_NullError_ShouldThrow()
+    {
+        Assert.Throws<ArgumentNullException>(
+            () => Result<string, string>.Failure(null!));
+    }
 }
