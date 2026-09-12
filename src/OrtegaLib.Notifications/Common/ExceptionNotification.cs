@@ -1,4 +1,4 @@
-namespace OrtegaLib.Notifications.Generic;
+namespace OrtegaLib.Notifications.Common;
 
 
 public sealed class ExceptionNotification(
