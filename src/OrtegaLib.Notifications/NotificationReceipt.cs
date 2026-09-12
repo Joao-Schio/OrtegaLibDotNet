@@ -1,7 +1,7 @@
 namespace OrtegaLib.Notifications;
 
 
-public class NotificationReceipt
-{
-    
-}
+public sealed record NotificationReceipt (
+    string? ExternalId,
+    DateTimeOffset SentAt
+);
