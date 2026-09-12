@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrtegaLib.Notifications.Tests", "tests\OrtegaLib.Notifications.Tests\OrtegaLib.Notifications.Tests.csproj", "{3A1C7E6A-1181-4E6F-88AD-8D2EC50E0573}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrtegaLib.Models", "src\OrtegaLib.Models\OrtegaLib.Models.csproj", "{05151119-B504-4962-824E-90C2AAD739EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrtegaLib.Models.Tests", "tests\OrtegaLib.Models.Tests\OrtegaLib.Models.Tests.csproj", "{24F40D4F-8D49-4139-9EA2-96C26E1F3957}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,30 @@ Global
 		{3A1C7E6A-1181-4E6F-88AD-8D2EC50E0573}.Release|x64.Build.0 = Release|Any CPU
 		{3A1C7E6A-1181-4E6F-88AD-8D2EC50E0573}.Release|x86.ActiveCfg = Release|Any CPU
 		{3A1C7E6A-1181-4E6F-88AD-8D2EC50E0573}.Release|x86.Build.0 = Release|Any CPU
+		{05151119-B504-4962-824E-90C2AAD739EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05151119-B504-4962-824E-90C2AAD739EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05151119-B504-4962-824E-90C2AAD739EA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{05151119-B504-4962-824E-90C2AAD739EA}.Debug|x64.Build.0 = Debug|Any CPU
+		{05151119-B504-4962-824E-90C2AAD739EA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{05151119-B504-4962-824E-90C2AAD739EA}.Debug|x86.Build.0 = Debug|Any CPU
+		{05151119-B504-4962-824E-90C2AAD739EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05151119-B504-4962-824E-90C2AAD739EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05151119-B504-4962-824E-90C2AAD739EA}.Release|x64.ActiveCfg = Release|Any CPU
+		{05151119-B504-4962-824E-90C2AAD739EA}.Release|x64.Build.0 = Release|Any CPU
+		{05151119-B504-4962-824E-90C2AAD739EA}.Release|x86.ActiveCfg = Release|Any CPU
+		{05151119-B504-4962-824E-90C2AAD739EA}.Release|x86.Build.0 = Release|Any CPU
+		{24F40D4F-8D49-4139-9EA2-96C26E1F3957}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24F40D4F-8D49-4139-9EA2-96C26E1F3957}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24F40D4F-8D49-4139-9EA2-96C26E1F3957}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{24F40D4F-8D49-4139-9EA2-96C26E1F3957}.Debug|x64.Build.0 = Debug|Any CPU
+		{24F40D4F-8D49-4139-9EA2-96C26E1F3957}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{24F40D4F-8D49-4139-9EA2-96C26E1F3957}.Debug|x86.Build.0 = Debug|Any CPU
+		{24F40D4F-8D49-4139-9EA2-96C26E1F3957}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24F40D4F-8D49-4139-9EA2-96C26E1F3957}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24F40D4F-8D49-4139-9EA2-96C26E1F3957}.Release|x64.ActiveCfg = Release|Any CPU
+		{24F40D4F-8D49-4139-9EA2-96C26E1F3957}.Release|x64.Build.0 = Release|Any CPU
+		{24F40D4F-8D49-4139-9EA2-96C26E1F3957}.Release|x86.ActiveCfg = Release|Any CPU
+		{24F40D4F-8D49-4139-9EA2-96C26E1F3957}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,5 +80,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B0D08625-96EE-42A9-A471-9C7FD5395CDE} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{3A1C7E6A-1181-4E6F-88AD-8D2EC50E0573} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+		{05151119-B504-4962-824E-90C2AAD739EA} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{24F40D4F-8D49-4139-9EA2-96C26E1F3957} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 	EndGlobalSection
 EndGlobal
