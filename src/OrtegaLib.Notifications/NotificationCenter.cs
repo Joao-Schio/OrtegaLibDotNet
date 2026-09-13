@@ -41,6 +41,16 @@ public sealed class NotificationCenter
             status);
     }
 
+    public IncomingMessageNotification CreateIncomingMessage(
+        string message
+    )
+    {
+        return new IncomingMessageNotification(
+            _serviceName,
+            message
+        );
+    }
+
     public Task<Result<NotificationReceipt, NotificationError>> SendAsync(
         Notification notification,
         CancellationToken cancellationToken = default)
