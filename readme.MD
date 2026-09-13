@@ -183,3 +183,7 @@ dotnet test OrtegaLibDotNet.sln
 ## Versioning
 
 The project is currently published as preview packages. Until `1.0.0`, breaking API changes may occur between preview releases.
+
+## License
+
+OrtegaLib is licensed under the [MIT License](LICENSE).
