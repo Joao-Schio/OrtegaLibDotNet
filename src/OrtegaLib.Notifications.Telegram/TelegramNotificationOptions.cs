@@ -1,7 +1,6 @@
 namespace OrtegaLib.Notifications.Telegram;
 
-
-public sealed class TelegramNotificationOptions(Uri serviceUri)
+public sealed class TelegramNotificationOptions
 {
-    public Uri ServiceUri { get; init; } = serviceUri;
+    public Uri? ServiceUri { get; set; }
 }
