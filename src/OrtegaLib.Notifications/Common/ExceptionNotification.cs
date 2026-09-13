@@ -4,7 +4,7 @@ namespace OrtegaLib.Notifications.Common;
 
 public sealed class ExceptionNotification : Notification
 {
-    public sealed record ExceptionDetails(
+    private sealed record ExceptionDetails(
         string Type,
         string Message,
         string? StackTrace,
@@ -16,7 +16,7 @@ public sealed class ExceptionNotification : Notification
         string serviceName,
         string message,
         Exception exception)
-        : base(serviceName, message, JsonSerializer.SerializeToElement(FromException(exception)))
+        : base(serviceName, message, SerializeException(exception))
     {
 
     }
@@ -31,5 +31,13 @@ public sealed class ExceptionNotification : Notification
             InnerException: exception.InnerException is null
                 ? null
                 : FromException(exception.InnerException));
+    }
+
+    private static JsonElement SerializeException(Exception exception)
+    {
+        ArgumentNullException.ThrowIfNull(exception);
+
+        return JsonSerializer.SerializeToElement(
+            FromException(exception));
     }
 }
