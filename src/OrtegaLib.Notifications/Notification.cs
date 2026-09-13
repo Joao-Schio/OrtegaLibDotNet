@@ -1,3 +1,5 @@
+using System.Text.Json;
+
 namespace OrtegaLib.Notifications;
 
 public abstract class Notification
@@ -8,14 +10,18 @@ public abstract class Notification
 
     public string Message { get; }
 
+    public JsonElement? Data { get; } 
+
     protected Notification(
         string serviceName,
-        string message)
+        string message,
+        JsonElement? data = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(serviceName);
         ArgumentException.ThrowIfNullOrWhiteSpace(message);
 
         ServiceName = serviceName;
         Message = message;
+        Data = data;
     }
 }
