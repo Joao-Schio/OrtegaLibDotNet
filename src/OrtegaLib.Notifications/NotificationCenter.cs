@@ -51,6 +51,14 @@ public sealed class NotificationCenter
         );
     }
 
+    public NotFoundNotification CreateNotFound(string endpoint)
+    {
+        return new NotFoundNotification(
+            _serviceName,
+            endpoint
+        );
+    }
+
     public Task<Result<NotificationReceipt, NotificationError>> SendAsync(
         Notification notification,
         CancellationToken cancellationToken = default)
