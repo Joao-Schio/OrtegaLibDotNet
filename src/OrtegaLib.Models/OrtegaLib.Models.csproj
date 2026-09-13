@@ -4,6 +4,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Description>Core result and shared model primitives for OrtegaLib.</Description>
   </PropertyGroup>
 
 </Project>
