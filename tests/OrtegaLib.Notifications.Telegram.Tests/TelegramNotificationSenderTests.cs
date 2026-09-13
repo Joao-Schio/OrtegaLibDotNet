@@ -2,7 +2,9 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
+using OrtegaLib.Notifications;
 using OrtegaLib.Notifications.Common;
+using OrtegaLib.Notifications.Telegram;
 
 namespace OrtegaLib.Notifications.Telegram.Tests;
 
