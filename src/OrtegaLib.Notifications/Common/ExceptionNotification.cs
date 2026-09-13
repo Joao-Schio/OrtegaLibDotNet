@@ -1,3 +1,5 @@
+using System.Text.Json;
+
 namespace OrtegaLib.Notifications.Common;
 
 public sealed class ExceptionNotification : Notification
@@ -10,17 +12,13 @@ public sealed class ExceptionNotification : Notification
 
     public override string NotificationType => "exception";
 
-    public ExceptionDetails Exception { get; }
-
     public ExceptionNotification(
         string serviceName,
         string message,
         Exception exception)
-        : base(serviceName, message)
+        : base(serviceName, message, JsonSerializer.SerializeToElement(FromException(exception)))
     {
-        ArgumentNullException.ThrowIfNull(exception);
 
-        Exception = FromException(exception);
     }
 
     private static ExceptionDetails FromException(Exception exception)
