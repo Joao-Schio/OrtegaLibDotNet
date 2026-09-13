@@ -10,6 +10,8 @@
     <Authors>João Pedro Schio Ortega</Authors>
     <RepositoryUrl>https://github.com/Joao-Schio/OrtegaLibDotNet</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/Joao-Schio/OrtegaLibDotNet</PackageProjectUrl>
+    <PackageTags>ortegalib;dotnet</PackageTags>
 
     <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
   </PropertyGroup>
