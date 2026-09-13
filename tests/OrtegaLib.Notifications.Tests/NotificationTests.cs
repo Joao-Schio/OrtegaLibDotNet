@@ -1,4 +1,5 @@
 using System.Text.Json;
+using OrtegaLib.Notifications;
 using OrtegaLib.Notifications.Common;
 
 namespace OrtegaLib.Notifications.Tests;
