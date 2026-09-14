@@ -1,5 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-
+using OrtegaLib.Notifications.Transport;
 namespace OrtegaLib.Notifications.Telegram.Tests;
 
 public sealed class TelegramDependencyInjectionTests

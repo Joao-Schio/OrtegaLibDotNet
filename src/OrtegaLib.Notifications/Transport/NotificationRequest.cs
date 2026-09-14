@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace OrtegaLib.Notifications;
+namespace OrtegaLib.Notifications.Transport;
 
 
 public sealed class NotificationRequest

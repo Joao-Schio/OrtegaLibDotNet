@@ -4,7 +4,10 @@ using System.Text;
 using System.Text.Json;
 using OrtegaLib.Notifications;
 using OrtegaLib.Notifications.Common;
+using OrtegaLib.Notifications.Transport;
 using OrtegaLib.Notifications.Telegram;
+using OrtegaLib.Models;
+
 
 namespace OrtegaLib.Notifications.Telegram.Tests;
 
@@ -123,6 +126,25 @@ public sealed class TelegramNotificationSenderTests
         Assert.False(result.Error.IsTransient);
     }
 
+    [Fact]
+    public async Task SendAsync_ConvertsNotificationAndDelegatesToTransport()
+    {
+        var transport = new FakeNotificationTransport();
+        var sender = new TelegramNotificationSender(transport);
+
+        var notification = new StatusNotification(
+            "resumesite",
+            "Service started",
+            StatusNotification.Status.Healthy);
+
+        await sender.SendAsync(notification);
+
+        Assert.NotNull(transport.Request);
+        Assert.Equal("resumesite", transport.Request.ServiceName);
+        Assert.Equal("status", transport.Request.NotificationType);
+        Assert.Equal("Service started", transport.Request.Message);
+    }
+
     private sealed class RecordingHandler(
         Func<HttpRequestMessage, HttpResponseMessage> responseFactory)
         : HttpMessageHandler
@@ -144,6 +166,23 @@ public sealed class TelegramNotificationSenderTests
                 : await request.Content.ReadAsStringAsync(cancellationToken);
 
             return responseFactory(request);
+        }
+    }
+
+
+    private sealed class FakeNotificationTransport : INotificationTransport
+    {
+        public NotificationRequest? Request { get; private set; }
+    
+        public Task<Result<NotificationReceipt, NotificationError>> SendAsync(
+            NotificationRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            Request = request;
+    
+            return Task.FromResult(
+                Result<NotificationReceipt, NotificationError>.Success(
+                    new NotificationReceipt(null, DateTimeOffset.UtcNow)));
         }
     }
 }
