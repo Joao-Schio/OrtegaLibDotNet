@@ -58,6 +58,9 @@ jobs:
       - name: Pack Models
         run: dotnet pack src/OrtegaLib.Models/OrtegaLib.Models.csproj --configuration Release --no-build --output artifacts "-p:PackageVersion=${PACKAGE_VERSION}"
 
+      - name: Pack Diagnostics
+        run: dotnet pack src/OrtegaLib.Diagnostics/OrtegaLib.Diagnostics.csproj --configuration Release --no-build --output artifacts "-p:PackageVersion=${PACKAGE_VERSION}"
+
       - name: Pack Notifications
         run: dotnet pack src/OrtegaLib.Notifications/OrtegaLib.Notifications.csproj --configuration Release --no-build --output artifacts "-p:PackageVersion=${PACKAGE_VERSION}"
 
