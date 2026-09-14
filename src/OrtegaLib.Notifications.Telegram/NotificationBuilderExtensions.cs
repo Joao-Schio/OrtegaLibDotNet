@@ -1,5 +1,6 @@
 using OrtegaLib.Notifications;
 using OrtegaLib.Notifications.Telegram;
+using OrtegaLib.Notifications.Telegram.Transport;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -25,8 +26,9 @@ public static class TelegramNotificationBuilderExtensions
                 "Telegram notification ServiceUri must be an absolute URI.");
         }
 
-        builder.Services.AddHttpClient<INotificationSender, TelegramNotificationSender>(
+        builder.Services.AddHttpClient<INotificationTransport, HttpNotificationTransport>(
             client => client.BaseAddress = serviceUri);
+        builder.Services.AddTransient<INotificationSender, TelegramNotificationSender>();
 
         return builder;
     }
