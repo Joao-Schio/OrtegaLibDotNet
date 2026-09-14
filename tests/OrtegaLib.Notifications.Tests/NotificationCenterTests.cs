@@ -40,8 +40,8 @@ public sealed class NotificationCenterTests
         var center = new NotificationCenter("test-service", sender);
 
         var notification = center.CreateStatus(
-            "Service degraded",
-            StatusNotification.Status.Degraded);
+            StatusNotification.Status.Degraded,
+            "Service degraded");
 
         Assert.Equal("test-service", notification.ServiceName);
         Assert.Equal("Service degraded", notification.Message);
@@ -57,8 +57,8 @@ public sealed class NotificationCenterTests
         var sender = new RecordingSender();
         var center = new NotificationCenter("test-service", sender);
         var notification = center.CreateStatus(
-            "Service healthy",
-            StatusNotification.Status.Healthy);
+            StatusNotification.Status.Healthy,
+            "Service healthy");
         using var cancellation = new CancellationTokenSource();
 
         var result = await center.SendAsync(

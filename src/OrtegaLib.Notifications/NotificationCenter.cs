@@ -32,9 +32,10 @@ public sealed class NotificationCenter
     }
 
     public StatusNotification CreateStatus(
-        StatusNotification.Status status)
+        StatusNotification.Status status,
+        string? message = null)
     {
-        var message = $"🟢 {_serviceName} is online";
+        message ??= $"🟢 {_serviceName} is online";
         return new StatusNotification(
             _serviceName,
             message,
