@@ -36,6 +36,9 @@ jobs:
             VERSION="${GITHUB_REF_NAME#v}"
           fi
 
+          VERSION="${VERSION#"${VERSION%%[![:space:]]*}"}"
+          VERSION="${VERSION%"${VERSION##*[![:space:]]}"}"
+
           if [[ -z "$VERSION" ]]; then
             echo "Package version cannot be empty."
             exit 1
@@ -53,13 +56,13 @@ jobs:
         run: dotnet test OrtegaLibDotNet.sln --configuration Release --no-build
 
       - name: Pack Models
-        run: dotnet pack src/OrtegaLib.Models/OrtegaLib.Models.csproj --configuration Release --no-build --output artifacts -p:PackageVersion=${{ env.PACKAGE_VERSION }}
+        run: dotnet pack src/OrtegaLib.Models/OrtegaLib.Models.csproj --configuration Release --no-build --output artifacts "-p:PackageVersion=${PACKAGE_VERSION}"
 
       - name: Pack Notifications
-        run: dotnet pack src/OrtegaLib.Notifications/OrtegaLib.Notifications.csproj --configuration Release --no-build --output artifacts -p:PackageVersion=${{ env.PACKAGE_VERSION }}
+        run: dotnet pack src/OrtegaLib.Notifications/OrtegaLib.Notifications.csproj --configuration Release --no-build --output artifacts "-p:PackageVersion=${PACKAGE_VERSION}"
 
       - name: Pack Telegram notifications
-        run: dotnet pack src/OrtegaLib.Notifications.Telegram/OrtegaLib.Notifications.Telegram.csproj --configuration Release --no-build --output artifacts -p:PackageVersion=${{ env.PACKAGE_VERSION }}
+        run: dotnet pack src/OrtegaLib.Notifications.Telegram/OrtegaLib.Notifications.Telegram.csproj --configuration Release --no-build --output artifacts "-p:PackageVersion=${PACKAGE_VERSION}"
 
       - name: Upload packages
         uses: actions/upload-artifact@v6
