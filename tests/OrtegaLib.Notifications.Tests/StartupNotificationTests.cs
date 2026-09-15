@@ -55,9 +55,47 @@ public sealed class StartupNotificationTests
         Assert.False(sender.NotificationSent.IsCompleted);
     }
 
+    [Fact]
+    public async Task StartupNotification_DoesNotFaultWhenSenderReturnsFailure()
+    {
+        using var lifetime = new TestApplicationLifetime();
+        var sender = new FailureSender();
+
+        using var provider = CreateProvider(lifetime, sender);
+
+        var service = Assert.Single(
+            provider.GetServices<IHostedService>());
+
+        await service.StartAsync(CancellationToken.None);
+
+        lifetime.SignalStarted();
+        await sender.SendAttempted;
+
+        await service.StopAsync(CancellationToken.None);
+    }
+
+    [Fact]
+    public async Task StartupNotification_DoesNotFaultWhenSenderThrows()
+    {
+        using var lifetime = new TestApplicationLifetime();
+        var sender = new ThrowingSender();
+
+        using var provider = CreateProvider(lifetime, sender);
+
+        var service = Assert.Single(
+            provider.GetServices<IHostedService>());
+
+        await service.StartAsync(CancellationToken.None);
+
+        lifetime.SignalStarted();
+        await sender.SendAttempted;
+
+        await service.StopAsync(CancellationToken.None);
+    }
+
     private static ServiceProvider CreateProvider(
         TestApplicationLifetime lifetime,
-        RecordingSender sender)
+        INotificationSender sender)
     {
         var services = new ServiceCollection();
 
@@ -93,6 +131,44 @@ public sealed class StartupNotificationTests
                     new NotificationReceipt(
                         null,
                         DateTimeOffset.UtcNow)));
+        }
+    }
+
+    private sealed class FailureSender : INotificationSender
+    {
+        private readonly TaskCompletionSource<bool> _sendAttempted =
+            new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        public Task SendAttempted => _sendAttempted.Task;
+
+        public Task<Result<NotificationReceipt, NotificationError>> SendAsync(
+            Notification notification,
+            CancellationToken cancellationToken = default)
+        {
+            _sendAttempted.TrySetResult(true);
+
+            return Task.FromResult(
+                Result<NotificationReceipt, NotificationError>.Failure(
+                    new NotificationError(
+                        "test_failure",
+                        "The test sender failed.",
+                        false)));
+        }
+    }
+
+    private sealed class ThrowingSender : INotificationSender
+    {
+        private readonly TaskCompletionSource<bool> _sendAttempted =
+            new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        public Task SendAttempted => _sendAttempted.Task;
+
+        public Task<Result<NotificationReceipt, NotificationError>> SendAsync(
+            Notification notification,
+            CancellationToken cancellationToken = default)
+        {
+            _sendAttempted.TrySetResult(true);
+            throw new InvalidOperationException("The test sender threw.");
         }
     }
 
