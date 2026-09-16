@@ -12,6 +12,7 @@ OrtegaLib is intentionally split into small NuGet packages so applications can d
 | --- | --- | --- |
 | [`OrtegaLib.Models`](https://www.nuget.org/packages/OrtegaLib.Models/) | Small shared model primitives such as `Result<T, E>`. | None |
 | [`OrtegaLib.Notifications`](https://www.nuget.org/packages/OrtegaLib.Notifications/) | Transport-agnostic notification contracts, `NotificationCenter`, and common notification types. | `OrtegaLib.Models` |
+| [`OrtegaLib.Notifications.AspNetCore`](https://www.nuget.org/packages/OrtegaLib.Notifications.AspNetCore/) | ASP.NET Core integration for automatically reporting HTTP 404 responses. | `OrtegaLib.Notifications` |
 | [`OrtegaLib.Notifications.Telegram`](https://www.nuget.org/packages/OrtegaLib.Notifications.Telegram/) | HTTP transport for sending OrtegaLib notifications to a separate Telegram client/notification service. | `OrtegaLib.Notifications`, `OrtegaLib.Models` |
 
 All packages currently target **.NET 10**.
@@ -30,6 +31,12 @@ dotnet add package OrtegaLib.Models --version 0.1.0-preview.1
 
 ```bash
 dotnet add package OrtegaLib.Notifications --version 0.1.0-preview.1
+```
+
+### ASP.NET Core integration
+
+```bash
+dotnet add package OrtegaLib.Notifications.AspNetCore --version 0.1.0-preview.1
 ```
 
 ### Telegram transport
@@ -84,6 +91,22 @@ builder.Services.AddNotifications("ResumeSite");
 ```
 
 A transport package then provides the `INotificationSender` implementation.
+
+## ASP.NET Core integration
+
+`OrtegaLib.Notifications.AspNetCore` adds optional web-specific behavior without making the core notification package depend on ASP.NET Core.
+
+Automatic 404 notifications can be enabled through the same notification builder:
+
+```csharp
+builder.Services
+    .AddNotifications("ResumeSite")
+    .AddNotFoundNotification();
+```
+
+The integration observes the final response status and sends a `NotFoundNotification` when a request finishes with HTTP 404. The original request URL is captured before the rest of the pipeline runs, so applications using status-code re-execution can still report the endpoint that actually failed.
+
+The application remains responsible for rendering its 404 response. For example, it can continue to use `UseStatusCodePagesWithReExecute`, Razor pages, controllers, or a JSON error response independently from notification reporting.
 
 ## Telegram transport
 
@@ -144,7 +167,7 @@ OrtegaLib favors small APIs and explicit contracts over framework-heavy abstract
 The main goals are:
 
 - keep shared models independently usable
-- keep notification contracts independent from transports
+- keep notification contracts independent from transports and web frameworks
 - keep application identity/configuration at startup instead of scattered through callers
 - keep transport-specific concerns in transport packages
 - make invalid or ambiguous states harder to express where practical
@@ -168,8 +191,8 @@ and at the package level:
 OrtegaLib.Models
         ↑
 OrtegaLib.Notifications
-        ↑
-OrtegaLib.Notifications.Telegram
+        ↑                   ↑
+AspNetCore integration   Telegram transport
 ```
 
 ## Building from source
