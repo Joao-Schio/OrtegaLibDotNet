@@ -64,6 +64,9 @@ jobs:
       - name: Pack Notifications
         run: dotnet pack src/OrtegaLib.Notifications/OrtegaLib.Notifications.csproj --configuration Release --no-build --output artifacts "-p:PackageVersion=${PACKAGE_VERSION}"
 
+      - name: Pack ASP.NET Core notifications
+        run: dotnet pack src/OrtegaLib.Notifications.AspNetCore/OrtegaLib.Notifications.AspNetCore.csproj --configuration Release --no-build --output artifacts "-p:PackageVersion=${PACKAGE_VERSION}"
+
       - name: Pack Telegram notifications
         run: dotnet pack src/OrtegaLib.Notifications.Telegram/OrtegaLib.Notifications.Telegram.csproj --configuration Release --no-build --output artifacts "-p:PackageVersion=${PACKAGE_VERSION}"
 
